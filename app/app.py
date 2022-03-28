@@ -15,9 +15,10 @@ load_dotenv()
 
 
 # Constants
-FLASK_DEBUG = getenv('FLASK_DEBUG') or False
+FLASK_DEBUG = bool(getenv('FLASK_DEBUG')) or False
+FLASK_DEV_ENV = bool(getenv('FLASK_DEV_ENV')) or False
 FLASK_HOST = getenv('FLASK_HOST') or 'localhost'
-FLASK_PORT = int(getenv('FLASK_PORT')) or 5000
+FLASK_PORT = getenv('FLASK_PORT') or 5000
 
 # Flask web application object
 app = Flask(__name__)
@@ -41,9 +42,11 @@ def default_route() -> str:
     return output
 
 
-Flask.run(
-    app,
-    host=FLASK_HOST,
-    port=FLASK_PORT,
-    debug=FLASK_DEBUG
-)
+# Run the Flask application for development environments only
+if FLASK_DEV_ENV is True:
+    Flask.run(
+        app,
+        host=FLASK_HOST,
+        port=FLASK_PORT,
+        debug=FLASK_DEBUG
+    )
