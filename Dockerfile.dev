@@ -20,5 +20,8 @@ RUN python -m pip install --upgrade pip && \
 # Set the PYTHONPATH environment variable
 ENV PYTHONPATH=/workspaces/github_profiler
 
+# Expose required ports
+EXPOSE 8080/tcp
+
 # Start the bash prompt
 CMD ["/bin/bash"]

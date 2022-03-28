@@ -20,7 +20,11 @@ RUN python -m pip install --upgrade pip && \
 # Set the PYTHONPATH environment variable
 ENV PYTHONPATH=/app
 
+# Copy the application files to the container image
 COPY /app /app
+
+# Expose required ports
+EXPOSE 8080/tcp
 
 # Start the bash prompt
 CMD ["/bin/bash"]
