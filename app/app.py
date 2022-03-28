@@ -17,7 +17,7 @@ load_dotenv()
 # Constants
 FLASK_DEBUG = getenv('FLASK_DEBUG') or False
 FLASK_HOST = getenv('FLASK_HOST') or 'localhost'
-FLASK_PORT = getenv('FLASK_PORT') or 5000
+FLASK_PORT = int(getenv('FLASK_PORT')) or 5000
 
 # Flask web application object
 app = Flask(__name__)
@@ -42,6 +42,7 @@ def default_route() -> str:
 
 
 Flask.run(
+    app,
     host=FLASK_HOST,
     port=FLASK_PORT,
     debug=FLASK_DEBUG
