@@ -7,3 +7,24 @@
 from flask import Flask
 
 # Imports - Local
+
+# Flask web application object
+app = Flask(__name__)
+
+
+# Default route
+@app.route('/')
+def default_route() -> str:
+    """ Default route testing.
+
+        Args:
+            None.
+
+        Returns:
+            output (str):
+                String of text to output in a browser
+    """
+
+    output = 'This is a test.'
+
+    return output
