@@ -1,1 +1,1 @@
-# <Project_Name> Repository
+# GitHub Profiler Repository

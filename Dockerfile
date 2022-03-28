@@ -1,4 +1,4 @@
-# <Project_Name> Container
+# GitHub Profiler Container
 FROM python:3.10-slim-buster
 
 # Set the working directory

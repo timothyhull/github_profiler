@@ -1,6 +1,6 @@
 {
     // Docker build instructions
-    "name": "<Project_Name>",
+    "name": "GitHub Profiler",
     "build": {
         "dockerfile": "../Dockerfile.dev",
         "context": ".."
