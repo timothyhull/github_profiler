@@ -13,9 +13,8 @@ from flask import Flask
 # Load environment variables
 load_dotenv()
 
-
 # Constants
-FLASK_DEBUG = bool(getenv('FLASK_DEBUG')) or False
+FLASK_DEBUG = getenv('FLASK_DEBUG') or False
 FLASK_DEV_ENV = bool(getenv('FLASK_DEV_ENV')) or False
 FLASK_HOST = getenv('FLASK_HOST') or 'localhost'
 FLASK_PORT = getenv('FLASK_PORT') or 5000
@@ -26,7 +25,7 @@ app = Flask(__name__)
 
 # Default route
 @app.route('/')
-def default_route() -> str:
+def home() -> str:
     """ Default route testing.
 
         Args:
