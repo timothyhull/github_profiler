@@ -6,7 +6,7 @@
 # Imports - Third-Party
 
 # Imports - Local
-from app.app import home, hello
+from web.web import home, hello
 
 # Constants
 HOME_OUTPUT = 'This is a test.'
