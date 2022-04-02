@@ -4,6 +4,9 @@ pyyaml
 # .env file support
 python_dotenv
 
+# GitHub API
+PyGithub
+
 # Python formatting
 autopep8
 flake8

@@ -1,3 +1,6 @@
+# GitHub API
+PyGithub
+
 # .env file support
 python_dotenv
 
