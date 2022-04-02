@@ -4,7 +4,7 @@
 # Imports - Python Standard Library
 
 # Imports - Third-Party
-from flask import Flask
+from flask import Flask, url_for
 from markupsafe import escape
 
 # Imports - Local
@@ -32,6 +32,7 @@ def home() -> str:
 
 
 # The trailing / in the rule argument auto-redirects requests with no /
+# https://flask.palletsprojects.com/en/2.1.x/quickstart/#unique-urls-redirection-behavior
 @app.route(rule='/<name>/')
 def hello(
     name: str
@@ -52,3 +53,11 @@ def hello(
     output = f'Hello, {escape(name)}.'
 
     return output
+
+
+# Testing the url_for method, which will automatically escape special chars
+# https://flask.palletsprojects.com/en/2.1.x/quickstart/#url-building
+with app.test_request_context():
+    print(url_for('home'))
+    print(url_for('home', next='/'))
+    print(url_for('hello', name='Timmy'))
