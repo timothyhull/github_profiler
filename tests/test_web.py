@@ -1,5 +1,5 @@
 #!/usr/bin/env pytest
-""" Tests for app/app.py. """
+""" Tests for web/web.py. """
 
 # Imports - Python Standard Library
 
