@@ -5,14 +5,14 @@
 from unittest.mock import MagicMock, patch
 
 # Imports - Third-Party
-from github import Github
+import github
 
 # Imports - Local
 from app.github_profiler import github_auth
 
 # Constants
 MOCK_GITHUB_TOKEN = '0123456789'
-MOCK_GITHUB_RATE_LIMITS = (4950, 5000)
+MOCK_GITHUB_RATE_LIMITS = (4999, 5000)
 
 
 # Mock classes
@@ -41,26 +41,33 @@ class Github_Mock():
 
 # Test functions
 @patch.object(
-    target=Github,
-    attribute='rate_limiting',
-    return_value=MOCK_GITHUB_RATE_LIMITS
+    target=github,
+    attribute='Github'
 )
 def test_github_auth(
     github_obj: MagicMock
 ) -> None:
     """ Test the github_auth function.
 
+        Mock the github.Github object with the test class Github_Mock.
+
         Args:
             github_obj (unittest.mock.MagicMock):
-                unittest MagicMock object for the github.Github object.
+                Mock of the github.Github object.
 
         Returns:
             None.
     """
 
+    # Set the unitest.mock.patch.object return value to a Github_Mock instance
+    github_obj.return_value = Github_Mock(
+        login_or_token=MOCK_GITHUB_TOKEN
+    )
+
     # Create a mock authenticated Github object
-    github_object = github_auth(
+    gh = github_auth(
         github_token=MOCK_GITHUB_TOKEN
     )
 
-    assert github_object == MOCK_GITHUB_RATE_LIMITS
+    # Assert the value of the mock Github_Mock.rate_limiting attribute
+    assert gh.rate_limiting == MOCK_GITHUB_RATE_LIMITS

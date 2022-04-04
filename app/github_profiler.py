@@ -6,7 +6,7 @@ from os import getenv
 
 # Imports - Third-Party
 from dotenv import load_dotenv
-from github import Github
+import github
 
 # Imports - Local
 
@@ -20,7 +20,7 @@ GITHUB_TOKEN = getenv('GITHUB_TOKEN')
 # Functions
 def github_auth(
     github_token: str = None
-) -> Github:
+) -> github.Github:
     """ Create a Github object with public or login/token auth.
 
         Args:
@@ -36,7 +36,7 @@ def github_auth(
     """
 
     # Create a Github object
-    github_object = Github(
+    github_object = github.Github(
         login_or_token=github_token
     )
 
