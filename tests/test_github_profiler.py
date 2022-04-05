@@ -5,14 +5,34 @@
 from unittest.mock import MagicMock, patch
 
 # Imports - Third-Party
+from pytest import raises
+from pytest import mark
+from github.GithubException import BadCredentialsException
+from requests import get
+from requests.exceptions import ConnectionError
 import github
 
 # Imports - Local
 from app.github_profiler import github_auth
 
 # Constants
+GITHUB_API_URL = 'https://api.github.com'
 MOCK_GITHUB_TOKEN = '0123456789'
 MOCK_GITHUB_RATE_LIMITS = (4999, 5000)
+
+# Test for GitHub API online connectivity
+try:
+    # Send a GET request to the GitHub API
+    get(
+        url=GITHUB_API_URL
+    )
+
+    # Set the github_api_online variable to True for successful connections
+    github_api_online = True
+
+except ConnectionError:
+    # Set the github_api_online variable to False for unsuccessful connections
+    github_api_online = False
 
 
 # Mock classes
@@ -71,3 +91,27 @@ def test_github_auth(
 
     # Assert the value of the mock Github_Mock.rate_limiting attribute
     assert gh.rate_limiting == MOCK_GITHUB_RATE_LIMITS
+
+
+@mark.skipif(
+    condition='github_api_online == False'
+)
+def test_github_auth_login_exception() -> None:
+    """ Test authentication exceptions in the github_auth function.
+
+        This test requires online connectivity to the GitHub API. Use
+        pytest.mark.skipif to skip the test when GitHub API
+        connectivity is not available.
+
+        Args:
+            None.
+
+        Returns:
+            None.
+    """
+
+    # Send a GitHub authentication request with an invalid token
+    with raises(BadCredentialsException):
+        github_auth(
+            github_token=MOCK_GITHUB_TOKEN
+        )
