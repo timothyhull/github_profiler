@@ -6,6 +6,7 @@ from os import getenv
 
 # Imports - Third-Party
 from dotenv import load_dotenv
+from github.GithubException import BadCredentialsException
 import github
 
 # Imports - Local
@@ -39,5 +40,14 @@ def github_auth(
     github_object = github.Github(
         login_or_token=github_token
     )
+
+    # Attempt to determine authentication status
+    try:
+        github_object.rate_limiting
+
+    # Handle a BadCredentialsException and re-raise the exception
+    except BadCredentialsException as e:
+        print(f'Error: {e.status} {e.data}\n')
+        raise
 
     return github_object
