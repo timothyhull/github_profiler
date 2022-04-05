@@ -17,7 +17,7 @@ from app.github_profiler import github_auth
 
 # Constants
 GITHUB_API_URL = 'https://api.github.com'
-MOCK_GITHUB_TOKEN = '0123456789'
+MOCK_GITHUB_KEY = '0123456789'
 MOCK_GITHUB_RATE_LIMITS = (4999, 5000)
 
 # Test for GitHub API online connectivity
@@ -81,12 +81,12 @@ def test_github_auth(
 
     # Set the unitest.mock.patch.object return value to a Github_Mock instance
     github_obj.return_value = Github_Mock(
-        login_or_token=MOCK_GITHUB_TOKEN
+        login_or_token=MOCK_GITHUB_KEY
     )
 
     # Create a mock authenticated Github object
     gh = github_auth(
-        github_token=MOCK_GITHUB_TOKEN
+        github_token=MOCK_GITHUB_KEY
     )
 
     # Assert the value of the mock Github_Mock.rate_limiting attribute
@@ -113,5 +113,5 @@ def test_github_auth_login_exception() -> None:
     # Send a GitHub authentication request with an invalid token
     with raises(BadCredentialsException):
         github_auth(
-            github_token=MOCK_GITHUB_TOKEN
+            github_token=MOCK_GITHUB_KEY
         )
