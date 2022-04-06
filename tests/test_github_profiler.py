@@ -115,3 +115,23 @@ def test_github_auth_login_exception() -> None:
         github_auth(
             github_token=MOCK_GITHUB_KEY
         )
+
+
+@patch.object(
+    target=github,
+    attribute='Github'
+)
+def test_github_get_user(
+    github_obj: MagicMock
+) -> None:
+    """ Test the github_auth function.
+
+        Mock the github.Github object with the test class Github_Mock.
+
+        Args:
+            github_obj (unittest.mock.MagicMock):
+                Mock of the github.Github object.
+
+        Returns:
+            None.
+    """
