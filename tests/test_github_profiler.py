@@ -19,6 +19,8 @@ from app.github_profiler import github_auth
 GITHUB_API_URL = 'https://api.github.com'
 MOCK_GITHUB_KEY = '0123456789'
 MOCK_GITHUB_RATE_LIMITS = (4999, 5000)
+MOCK_GITHUB_USER = 'timothyhull'
+MOCK_GITHUB_URL = 'https://github.com/timothyhull'
 
 # Test for GitHub API online connectivity
 try:
@@ -36,7 +38,7 @@ except ConnectionError:
 
 
 # Mock classes
-class Github_Mock():
+class Github_Mock:
     """ Mock of the PyGithub github.Github class. """
 
     def __init__(
@@ -50,11 +52,34 @@ class Github_Mock():
                     Placeholder argument for a mock GitHub token.
 
             Returns:
-                None
+                None.
         """
 
         # Set rate limiting attribute tuple
         self.rate_limiting = MOCK_GITHUB_RATE_LIMITS
+
+        return None
+
+
+class Github_Auth_Mock:
+    """ Mock of the PyGithub AuthenticatedUser class.
+
+        The full mock object path is:
+        github.AuthenticatedUser.AuthenticatedUser.
+    """
+
+    def __init__(self) -> None:
+        """ Class initializer.
+
+            Args:
+                None.
+
+            Returns:
+                None.
+        """
+
+        self.name = MOCK_GITHUB_USER
+        self.url = MOCK_GITHUB_URL
 
         return None
 
@@ -65,14 +90,14 @@ class Github_Mock():
     attribute='Github'
 )
 def test_github_auth(
-    github_obj: MagicMock
+    github_mock_obj: MagicMock
 ) -> None:
     """ Test the github_auth function.
 
         Mock the github.Github object with the test class Github_Mock.
 
         Args:
-            github_obj (unittest.mock.MagicMock):
+            github_mock_obj (unittest.mock.MagicMock):
                 Mock of the github.Github object.
 
         Returns:
@@ -80,7 +105,7 @@ def test_github_auth(
     """
 
     # Set the unitest.mock.patch.object return value to a Github_Mock instance
-    github_obj.return_value = Github_Mock(
+    github_mock_obj.return_value = Github_Mock(
         login_or_token=MOCK_GITHUB_KEY
     )
 
@@ -119,19 +144,27 @@ def test_github_auth_login_exception() -> None:
 
 @patch.object(
     target=github,
-    attribute='Github'
+    attribute='AuthenticatedUser'
 )
 def test_github_get_user(
-    github_obj: MagicMock
+    github_mock_auth_obj: MagicMock
 ) -> None:
-    """ Test the github_auth function.
+    """ Test the github_get_user function.
 
-        Mock the github.Github object with the test class Github_Mock.
+        Mock the github.Github.get_user method with the test class
+        Github_Mock.
 
         Args:
-            github_obj (unittest.mock.MagicMock):
-                Mock of the github.Github object.
+            github_mock_auth_obj (unittest.mock.MagicMock):
+                Mock of the github.AuthenticatedUser object.
 
         Returns:
             None.
     """
+
+    # Set the unitest.mock.patch.object return value to a Github_Mock instance
+    github_mock_auth_obj.return_value = Github_Auth_Mock()
+
+    gam = Github_Auth_Mock()
+
+    assert gam.name == MOCK_GITHUB_USER
