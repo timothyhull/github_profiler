@@ -51,3 +51,34 @@ def github_auth(
         raise
 
     return github_object
+
+
+def github_get_user(
+    github_object: github.Github,
+    github_user_id: str = None
+) -> github.AuthenticatedUser.AuthenticatedUser:
+    """ Create a GitHub authenticated user object.
+
+        Calls the github.Github.get_user method on the github_object.
+
+        Args:
+            github_object (github.Github):
+                github.Github user object of class type
+                github.AuthenticatedUser.Authenticated.
+
+            github_user_id (str, optional):
+                GitHub user ID to retreive data for.  Default is
+                None, which retrieves data for the user associated
+                with the github.Github token authentication.
+
+        Returns:
+            github_user (github.AuthenticatedUser.AuthenticatedUser):
+                GitHub authenticated user object.
+    """
+
+    # Create the GitHub authenticated user object
+    github_user = github_object.get_user(
+        login=github_user_id
+    )
+
+    return github_user
