@@ -14,7 +14,7 @@ import github
 
 # Imports - Local
 from app.github_profiler import (
-    github_auth, github_get_user
+    github_auth, get_github_user, get_github_repos
 )
 
 # Constants
@@ -23,6 +23,7 @@ MOCK_GITHUB_KEY = '0123456789'
 MOCK_GITHUB_RATE_LIMITS = (4999, 5000)
 MOCK_GITHUB_USER = 'timothyhull'
 MOCK_GITHUB_URL = 'https://github.com/timothyhull'
+MOCK_GITHUB_REPO_COUNT = 10
 
 # Test for GitHub API online connectivity
 try:
@@ -40,10 +41,32 @@ except ConnectionError:
 
 
 # Mock classes
+class GitHub_PaginatedList_Mock:
+    """ Mock of the PyGithub PaginatedList class.
+
+        The full path to the mocked object is:
+        github.PaginatedList.PaginatedList.
+    """
+
+    def __init__(self) -> None:
+        """ Class initializer.
+
+            Args:
+                None.
+
+            Returns:
+                None.
+        """
+
+        self.totalCount = MOCK_GITHUB_REPO_COUNT
+
+        return None
+
+
 class Github_Auth_Mock:
     """ Mock of the PyGithub AuthenticatedUser class.
 
-        The full mock object path is:
+        The full path to the mocked object is:
         github.AuthenticatedUser.AuthenticatedUser.
     """
 
@@ -61,6 +84,25 @@ class Github_Auth_Mock:
         self.url = MOCK_GITHUB_URL
 
         return None
+
+    def get_repos(self):
+        """ Mock of the AuthenticatedUser.get_repos method.
+
+            The full path to the mocked object is:
+            github.AuthenticatedUser.AuthenticatedUser.get_repos.
+
+            Args:
+                None.
+
+            Returns:
+                github_repos (GitHub_PaginatedList_Mock):
+                    Instance of the GitHub_PaginatedList_Mock class.
+        """
+
+        # Create a mock github.PaginatedList.PaginatedList object
+        github_repos_mock = GitHub_PaginatedList_Mock()
+
+        return github_repos_mock
 
 
 class Github_Mock:
@@ -102,7 +144,7 @@ class Github_Mock:
                     Instance of the Github_Auth_Mock class.
         """
 
-        # Create a mock
+        # Create a mock github.AuthenticatedUser.AuthenticatedUser object
         github_mock_user = Github_Auth_Mock()
 
         return github_mock_user
@@ -169,10 +211,10 @@ def test_github_auth_login_exception() -> None:
 @patch(
     target='github.Github.get_user'
 )
-def test_github_get_user(
+def test_get_github_user(
     github_mock_auth_obj: MagicMock
 ) -> None:
-    """ Test the github_get_user function.
+    """ Test the get_github_user function.
 
         Mock the github.Github.get_user method with the test class
         Github_Mock.
@@ -185,11 +227,37 @@ def test_github_get_user(
             None.
     """
 
-    # Set the unitest.mock.patch.object return value to a Github_Mock instance
-    # github_mock_auth_obj.return_value = Github_Auth_Mock()
-
-    gh_user = github_get_user(
+    # Call the get_github_user function with a mock github.Github object
+    gh_user = get_github_user(
         github_object=Github_Mock()
     )
 
     assert gh_user.name == MOCK_GITHUB_USER
+
+
+@patch(
+    target='github.AuthenticatedUser.AuthenticatedUser.get_repos'
+)
+def test_get_github_repos(
+    github_mock_repos_obj: MagicMock
+) -> None:
+    """ Test the get_github_repos function.
+
+        Mock the github.PaginatedList.PaginatedList object returned by
+        the github.AuthenticatedUser.AuthenticatedUser.get_repos
+        method.
+
+        Args:
+            github_mock_auth_obj (unittest.mock.MagicMock):
+                Mock of the github.AuthenticatedUser object.
+
+        Returns:
+            None.
+    """
+
+    # Call the get_github_repos function with a mock AuthenticatedUser object
+    gh_repos = get_github_repos(
+        github_user_object=Github_Auth_Mock()
+    )
+
+    assert gh_repos.totalCount == MOCK_GITHUB_REPO_COUNT
