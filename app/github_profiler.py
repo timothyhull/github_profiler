@@ -6,7 +6,11 @@ from os import getenv
 
 # Imports - Third-Party
 from dotenv import load_dotenv
+from github.AuthenticatedUser import AuthenticatedUser
 from github.GithubException import BadCredentialsException
+from github.GithubObject import NotSet, _NotSetType
+from github.PaginatedList import PaginatedList
+from typing import Union
 import github
 
 # Imports - Local
@@ -53,9 +57,9 @@ def github_auth(
     return github_object
 
 
-def github_get_user(
+def get_github_user(
     github_object: github.Github,
-    github_user_id: str = None
+    github_user_id: Union[str, _NotSetType] = NotSet
 ) -> github.AuthenticatedUser.AuthenticatedUser:
     """ Create a GitHub authenticated user object.
 
@@ -64,12 +68,15 @@ def github_get_user(
         Args:
             github_object (github.Github):
                 github.Github user object of class type
-                github.AuthenticatedUser.Authenticated.
+                github.AuthenticatedUser.AuthenticatedUser.
 
-            github_user_id (str, optional):
-                GitHub user ID to retreive data for.  Default is
-                None, which retrieves data for the user associated
-                with the github.Github token authentication.
+            github_user_id (
+                str | github.GithubObject._NotSetType, optional
+            ):
+                User ID (str) of GitHub user to retreive data for.
+                Default is github.GithubObject._NotSetType, which
+                retrieves data for the user associated with the
+                github.Github authentication token.
 
         Returns:
             github_user (github.AuthenticatedUser.AuthenticatedUser):
@@ -82,3 +89,28 @@ def github_get_user(
     )
 
     return github_user
+
+
+def get_github_repos(
+    github_user_object: AuthenticatedUser
+) -> PaginatedList:
+    """ Get a user's GitHub repos.
+
+        Calls the get_repos method on the
+        github.AuthenticatedUser.AuthenticatedUser github_user.
+
+        Args:
+            github_user (github.AuthenticatedUser.AuthenticatedUser):
+                github.AuthenticatedUser.AuthenticatedUser object for
+                a GitHub user.
+
+        Returns:
+            github_repos (github.PaginatedList.PaginatedList):
+                List of GitHub repos for a GitHub user as a
+                github.PaginatedList.PaginatedList class object.
+    """
+
+    # Get a list of repos for a GitHub user
+    github_repos = github_user_object.get_repos()
+
+    return github_repos
