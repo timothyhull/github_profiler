@@ -32,24 +32,14 @@ class Repos(BASE):
 
     # Assign table columns
     id = Column(
-        type=Integer,
+        Integer,
         primary_key=True
     )
-    description = Column(
-        type=String(100)
-    )
-    name = Column(
-        type=String(50)
-    )
-    owner = Column(
-        String(40)
-    )
-    url = Column(
-        type=String(length=50)
-    )
-    last_updated = Column(
-        type=DateTime
-    )
+    description = Column(String(100))
+    name = Column(String(50))
+    owner = Column(String(40))
+    url = Column(String(length=50))
+    last_updated = Column(DateTime)
 
     # Define repr function
     def __repr__(self):
