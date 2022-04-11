@@ -35,24 +35,19 @@ class Repos(BASE):
         type=Integer,
         primary_key=True
     )
-
-    repo_description = Column(
+    description = Column(
         type=String(100)
     )
-
-    repo_name = Column(
+    name = Column(
         type=String(50)
     )
-
-    repo_owner = Column(
+    owner = Column(
         String(40)
     )
-
-    repo_url = Column(
+    url = Column(
         type=String(length=50)
     )
-
-    repo_last_updated = Column(
+    last_updated = Column(
         type=DateTime
     )
 
@@ -67,8 +62,9 @@ class Repos(BASE):
                     count.
         """
 
+        # Create a repr string
         repr_string = (
-            f'<Repo(name={self.repo_name}, owner={self.repo_owner})>'
+            f'<Repo(name={self.name}, owner={self.owner}, url={self.url})>'
         )
 
         return repr_string
