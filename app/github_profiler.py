@@ -10,8 +10,7 @@ from dotenv import load_dotenv
 from github.AuthenticatedUser import AuthenticatedUser
 from github.GithubException import BadCredentialsException
 from github.GithubObject import NotSet, _NotSetType
-from github.PaginatedList import PaginatedList
-from typing import Union
+from typing import List, Union
 import github
 
 # Imports - Local
@@ -31,7 +30,7 @@ GitHubRepo = namedtuple(
         'description',
         'owner',
         'url',
-        'last_updated'
+        'last_modified'
     ]
 )
 
@@ -107,7 +106,7 @@ def get_github_user(
 
 def get_github_repos(
     github_user_object: AuthenticatedUser
-) -> PaginatedList:
+) -> List:
     """ Get a user's GitHub repos.
 
         Calls the get_repos method on the
@@ -119,12 +118,36 @@ def get_github_repos(
                 a GitHub user.
 
         Returns:
-            github_repos (github.PaginatedList.PaginatedList):
-                List of GitHub repos for a GitHub user as a
-                github.PaginatedList.PaginatedList class object.
+            repo_list (List):
+                List of GitHubRepo namedtuple objects for each GitHub
+                repos.
     """
 
     # Get a list of repos for a GitHub user
-    github_repos = github_user_object.get_repos()
+    repos = github_user_object.get_repos()
 
-    return github_repos
+    # Create a list to hold each repo as a list item
+    repo_list = []
+
+    # Loop over the repos PaginatedList object
+    for repo in repos:
+
+        # Create a GitHubRepo namedtuple object for the current repo iteration
+        repo_object = GitHubRepo(
+            name=repo.name,
+            description=repo.description,
+            owner=repo.owner,
+            url=repo.url,
+            last_modified=repo.last_modified
+        )
+
+        # Append the repo_object to repo_list
+        repo_list.append(repo_object)
+
+    # Sort the repo list by repo name
+    repo_list.sort(
+        key=lambda repo: repo.name,
+        reverse=True
+    )
+
+    return repo_list
