@@ -2,6 +2,7 @@
 """ GitHub profiler application for #100DaysofCode Days 59+60. """
 
 # Imports - Python Standard Library
+from collections import namedtuple
 from os import getenv
 
 # Imports - Third-Party
@@ -20,6 +21,19 @@ load_dotenv()
 
 # Constants
 GITHUB_TOKEN = getenv('GITHUB_TOKEN')
+
+# namedtuple objects
+GitHubRepo = namedtuple(
+    # Object to attributes for individual GitHub repos
+    typename='GitHubRepo',
+    field_names=[
+        'name',
+        'description',
+        'owner',
+        'url',
+        'last_updated'
+    ]
+)
 
 
 # Functions
