@@ -1,8 +1,11 @@
-# GitHub API
-PyGithub
+# Database ORM
+SQLAlchemy
 
 # .env file support
 python_dotenv
+
+# GitHub API
+PyGithub
 
 # Python testing
 pytest
