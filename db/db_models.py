@@ -35,8 +35,8 @@ class Repos(BASE):
         Integer,
         primary_key=True
     )
-    description = Column(String(100))
     name = Column(String(50))
+    description = Column(String(100))
     owner = Column(String(40))
     url = Column(String(length=50))
     last_updated = Column(DateTime)
