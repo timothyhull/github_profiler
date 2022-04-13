@@ -14,7 +14,7 @@ import github
 
 # Imports - Local
 from app.github_profiler import (
-    github_auth, get_github_user, get_github_repos
+    GitHubRepo, github_auth, get_github_user, get_github_repos
 )
 
 # Constants
@@ -23,7 +23,16 @@ MOCK_GITHUB_KEY = '0123456789'
 MOCK_GITHUB_RATE_LIMITS = (4999, 5000)
 MOCK_GITHUB_USER = 'timothyhull'
 MOCK_GITHUB_URL = 'https://github.com/timothyhull'
-MOCK_GITHUB_REPO_COUNT = 10
+MOCK_GITHUB_REPO_NAME = 'my_repo'
+MOCK_GITHUB_REPO_LIST = [
+    GitHubRepo(
+        name=MOCK_GITHUB_REPO_NAME,
+        description='This is my repo',
+        owner=MOCK_GITHUB_USER,
+        url=MOCK_GITHUB_URL,
+        last_modified=None
+    )
+]
 
 # Test for GitHub API online connectivity
 try:
@@ -41,28 +50,6 @@ except ConnectionError:
 
 
 # Mock classes
-class GitHub_PaginatedList_Mock:
-    """ Mock of the PyGithub PaginatedList class.
-
-        The full path to the mocked object is:
-        github.PaginatedList.PaginatedList.
-    """
-
-    def __init__(self) -> None:
-        """ Class initializer.
-
-            Args:
-                None.
-
-            Returns:
-                None.
-        """
-
-        self.totalCount = MOCK_GITHUB_REPO_COUNT
-
-        return None
-
-
 class Github_Auth_Mock:
     """ Mock of the PyGithub AuthenticatedUser class.
 
@@ -100,7 +87,7 @@ class Github_Auth_Mock:
         """
 
         # Create a mock github.PaginatedList.PaginatedList object
-        github_repos_mock = GitHub_PaginatedList_Mock()
+        github_repos_mock = MOCK_GITHUB_REPO_LIST
 
         return github_repos_mock
 
@@ -260,4 +247,4 @@ def test_get_github_repos(
         github_user_object=Github_Auth_Mock()
     )
 
-    assert gh_repos.totalCount == MOCK_GITHUB_REPO_COUNT
+    assert gh_repos[0].name == MOCK_GITHUB_REPO_NAME
