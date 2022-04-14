@@ -19,6 +19,7 @@ import github
 load_dotenv()
 
 # Constants
+GITHUB_AFFILIATION = 'owner'
 GITHUB_TOKEN = getenv('GITHUB_TOKEN')
 
 # namedtuple objects
@@ -124,7 +125,9 @@ def get_github_repos(
     """
 
     # Get a list of repos for a GitHub user
-    repos = github_user_object.get_repos()
+    repos = github_user_object.get_repos(
+        affiliation=GITHUB_AFFILIATION
+    )
 
     # Create a list to hold each repo as a list item
     repo_list = []
