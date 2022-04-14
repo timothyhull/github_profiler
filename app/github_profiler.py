@@ -31,7 +31,7 @@ GitHubRepo = namedtuple(
         'description',
         'owner',
         'url',
-        'last_modified'
+        'updated_at'
     ]
 )
 
@@ -141,7 +141,7 @@ def get_github_repos(
             description=repo.description,
             owner=repo.owner,
             url=repo.url,
-            last_modified=repo.last_modified
+            updated_at=repo.updated_at
         )
 
         # Append the repo_object to repo_list

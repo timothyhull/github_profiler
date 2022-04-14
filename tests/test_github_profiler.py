@@ -30,7 +30,7 @@ MOCK_GITHUB_REPO_LIST = [
         description='This is my repo',
         owner=MOCK_GITHUB_USER,
         url=MOCK_GITHUB_URL,
-        last_modified=None
+        updated_at=None
     )
 ]
 

@@ -39,7 +39,7 @@ class Repos(BASE):
     description = Column(String(100))
     owner = Column(String(40))
     url = Column(String(length=50))
-    last_modified = Column(DateTime)
+    updated_at = Column(DateTime)
 
     # Define repr function
     def __repr__(self):
