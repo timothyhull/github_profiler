@@ -3,26 +3,28 @@
 
 # Imports - Python Standard Library
 from os import getenv
+from os.path import abspath, dirname, join
+from pathlib import Path
 
 # Imports - Third-Party
-# from dotenv import load_dotenv
-# from sqlalchemy import create_engine
-# from sqlalchemy.orm import sessionmaker
+from dotenv import load_dotenv
 
 # Imports - Local
-import sqlite3
+from sqlite3 import connect
 
 # Load environment variables
-# from db_models import BASE, Repos
+load_dotenv()
 
 # Constants
-AUTO_FLUSH = True
-DB_LOGGING = True
+CURRENT_DIR = Path(dirname(__file__))
+CURRENT_DIR_ABSPATH = abspath(CURRENT_DIR)
 DB_URL = getenv(key='DB_URL', default=None)
+DB_NAME = getenv(key='DB_NAME', default=None)
+DB_TEST_NAME = getenv(key='TEST_DB_NAME', default=None)
 
-# SQLite3 Database
-sqlite_db = sqlite3.connect(
-    database='github_profiler.db'
+# Create a database connection
+conn = connect(
+    database=join(CURRENT_DIR_ABSPATH, DB_NAME)
 )
 
 # Functions
