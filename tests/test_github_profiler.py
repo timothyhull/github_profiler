@@ -10,6 +10,7 @@ from pytest import mark
 from github.GithubException import BadCredentialsException
 from requests import get
 from requests.exceptions import ConnectionError
+from typing import Any
 import github
 
 # Imports - Local
@@ -72,14 +73,22 @@ class Github_Auth_Mock:
 
         return None
 
-    def get_repos(self):
+    def get_repos(
+        self,
+        *args: Any,
+        **kwargs: Any
+    ):
         """ Mock of the AuthenticatedUser.get_repos method.
 
             The full path to the mocked object is:
             github.AuthenticatedUser.AuthenticatedUser.get_repos.
 
             Args:
-                None.
+                *args (Any):
+                    Positional arguments with no specified paramater.
+
+                **kwargs (Any):
+                    Keyword arguments with no specified paramater.
 
             Returns:
                 github_repos (GitHub_PaginatedList_Mock):
