@@ -13,7 +13,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
 # Imports - Local
-# from db.db_models import BASE, Repos
+from db.db_models import BASE, Repos
 
 # Load environment variables
 load_dotenv()
@@ -40,8 +40,14 @@ engine = create_engine(
 )
 
 # Create an SQLAlchemy database session
-session = Session(
-    engine=engine
-)
+session = Session(engine)
+
+# Create database tables, if they don't already exist
+BASE.metadata.create_all(engine)
+
+# Query the database Repos table
+session.query(
+    Repos
+).all()
 
 # Functions
