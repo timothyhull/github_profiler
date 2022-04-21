@@ -30,6 +30,7 @@ GitHubRepo = namedtuple(
         'name',
         'description',
         'owner',
+        'private',
         'url',
         'updated_at'
     ]
@@ -140,6 +141,7 @@ def get_github_repos(
             name=repo.name,
             description=repo.description,
             owner=repo.owner,
+            private=repo.private,
             url=repo.url,
             updated_at=repo.updated_at
         )
