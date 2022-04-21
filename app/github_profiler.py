@@ -140,7 +140,7 @@ def get_github_repos(
         repo_object = GitHubRepo(
             name=repo.name,
             description=repo.description,
-            owner=repo.owner,
+            owner=repo.owner.login,
             private=repo.private,
             url=repo.url,
             updated_at=repo.updated_at
