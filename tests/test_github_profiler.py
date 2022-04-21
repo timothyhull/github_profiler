@@ -24,12 +24,14 @@ MOCK_GITHUB_KEY = '0123456789'
 MOCK_GITHUB_RATE_LIMITS = (4999, 5000)
 MOCK_GITHUB_USER = 'timothyhull'
 MOCK_GITHUB_URL = 'https://github.com/timothyhull'
+MOCK_GITHUB_PRIVATE = True
 MOCK_GITHUB_REPO_NAME = 'my_repo'
 MOCK_GITHUB_REPO_LIST = [
     GitHubRepo(
         name=MOCK_GITHUB_REPO_NAME,
         description='This is my repo',
         owner=MOCK_GITHUB_USER,
+        private=MOCK_GITHUB_PRIVATE,
         url=MOCK_GITHUB_URL,
         updated_at=None
     )

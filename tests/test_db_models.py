@@ -11,9 +11,11 @@ from db.db_models import Repos
 # Constants
 REPO_NAME = 'test_repo'
 REPO_OWNER = 'timothyhull'
+REPO_PRIVATE = True
 REPO_URL = f'https://github.com/{REPO_OWNER}/{REPO_NAME}'
 REPOS_REPR_STRING = (
-    f'<Repo(name={REPO_NAME}, owner={REPO_OWNER}, url={REPO_URL})>'
+    f'<Repo(name={REPO_NAME}, owner={REPO_OWNER}, '
+    f'private={REPO_PRIVATE}, url={REPO_URL})>'
 )
 
 
@@ -35,6 +37,7 @@ def test_repos() -> None:
     repo = Repos()
     repo.name = REPO_NAME
     repo.owner = REPO_OWNER
+    repo.private = REPO_PRIVATE
     repo.url = REPO_URL
 
     assert str(repo) == REPOS_REPR_STRING
