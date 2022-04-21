@@ -7,6 +7,7 @@ from os.path import abspath, dirname, join
 from pathlib import Path
 from sqlite3 import connect
 from sys import argv
+from typing import List
 
 # Imports - Third-Party
 from dotenv import load_dotenv
@@ -15,7 +16,7 @@ from sqlalchemy.orm import Session as SessionObject
 from sqlalchemy.orm import sessionmaker
 
 # Imports - Local
-from db.db_models import BASE
+from db.db_models import BASE, Repos
 
 # Load environment variables
 load_dotenv()
@@ -90,3 +91,126 @@ def _create_session() -> SessionObject:
     session = Session()
 
     return session
+
+
+# Create a session object using _create_session
+session = _create_session()
+
+
+def commit_session(
+    session: SessionObject = session
+) -> bool:
+    """ Commit the SQLAlchemy session to the database.
+
+        Args:
+            session (sqlalchemy.orm.Session (SessionObject), optional):
+                By default, uses the session object created by the
+                _create_session function.  Allows the ability to pass a
+                mock Session object for pytest testing.
+
+        Returns:
+            session_in_transaction (bool):
+                False if the transaction is complete, True if the
+                transaction is neither committed nor rolled back.
+    """
+
+    # Commit the changes to the database
+    session.commit()
+
+    # Collect the session transaction status
+    session_in_transaction = session.in_transaction()
+
+    return session_in_transaction
+
+
+def truncate_tables(
+    session: SessionObject = session
+) -> bool:
+    """ Remove all rows from the database tables.
+
+        Args:
+            session (sqlalchemy.orm.Session (SessionObject), optional):
+                By default, uses the session object created by the
+                _create_session function.  Allows the ability to pass a
+                mock Session object for pytest testing.
+
+        Returns:
+            session_active (bool):
+                False if the transaction is complete, True if the
+                transaction is neither committed nor rolled back.
+    """
+
+    # Delete data returned by a query of the Repos table
+    session.query(Repos).delete()
+
+    # Commit the changes to the database
+    session_active = commit_session(
+        session=session
+    )
+
+    return session_active
+
+
+def get_repos(
+    session: SessionObject = session
+) -> List:
+    """ Get all repos from the database.
+
+        Args:
+            session (sqlalchemy.orm.Session (SessionObject), optional):
+                By default, uses the session object created by the
+                _create_session function.  Allows the ability to pass a
+                mock Session object for pytest testing.
+
+        Returns:
+            repos (List):
+                All entries in the repos table, sorted alphabetically,
+                by name.
+    """
+
+    # Retreive and sort all entries from the hashtags table
+    repos = session.query(Repos).order_by(Repos.name).all()
+
+    return repos
+
+
+def add_repos(
+    repos: List,
+    session: SessionObject = session
+) -> bool:
+    """ Add repos to the database.
+
+        Args:
+            repos (List):
+                List object with new hashtags.
+
+            session (sqlalchemy.orm.Session (SessionObject), optional):
+                By default, uses the session object created by the
+                _create_session function.  Allows the ability to pass a
+                mock Session object for pytest testing.
+
+        Returns:
+           session_active (bool):
+                False if the transaction is complete, True if the
+                transaction is neither committed nor rolled back.
+    """
+
+    # Add new repos to the session object
+    for repo in repos:
+        session.add(
+            instance=Repos(
+                name=repo.name,
+                description=repo.description,
+                private=repo.private,
+                owner=repo.owner,
+                url=repo.url,
+                updated_at=repo.updated_at
+            )
+        )
+
+    # Commit the changes to the database
+    session_active = commit_session(
+        session=session
+    )
+
+    return session_active
