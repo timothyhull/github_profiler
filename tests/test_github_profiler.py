@@ -18,11 +18,22 @@ from app.github_profiler import (
     GitHubRepo, github_auth, get_github_user, get_github_repos
 )
 
+
+# GitOwnerLogin mock class definition object
+class GitOwnerLogin:
+
+    def __init__(
+        self,
+        owner: str
+    ) -> None:
+        self.login = owner
+
+
 # Constants
 GITHUB_API_URL = 'https://api.github.com'
 MOCK_GITHUB_KEY = '0123456789'
 MOCK_GITHUB_RATE_LIMITS = (4999, 5000)
-MOCK_GITHUB_USER = 'timothyhull'
+MOCK_GITHUB_USER = GitOwnerLogin(owner='timothyhull')
 MOCK_GITHUB_URL = 'https://github.com/timothyhull'
 MOCK_GITHUB_PRIVATE = True
 MOCK_GITHUB_REPO_NAME = 'my_repo'
