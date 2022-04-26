@@ -3,7 +3,8 @@
 
 # Imports - Python Standard Library
 from collections import namedtuple
-from os import getenv
+from os import getcwd, getenv
+from os.path import join
 
 # Imports - Third-Party
 from dotenv import load_dotenv
@@ -15,8 +16,15 @@ import github
 
 # Imports - Local
 
-# Load environment variables
-load_dotenv()
+# Load environment variables from the directory of this script
+load_dotenv(
+    dotenv_path='./.env'
+)
+
+# Load environment variables from the script user's working directory 
+load_dotenv(
+    dotenv_path=join(getcwd, '.env')
+)
 
 # Constants
 GITHUB_AFFILIATION = 'owner'
