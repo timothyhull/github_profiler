@@ -21,7 +21,7 @@ load_dotenv(
     dotenv_path='./.env'
 )
 
-# Load environment variables from the script user's working directory 
+# Load environment variables from the script user's working directory
 load_dotenv(
     dotenv_path=join(
         getcwd(), '.env'
