@@ -20,12 +20,33 @@ from app.github_profiler import (
 
 
 # GitOwnerLogin mock class definition object
-class GitOwnerLogin:
+class MockGithubRepositoryOwner:
+    """ Mock of the PyGithub Repository class.
+
+        The full path to the mocked object is:
+            github.Repository.Repository.owner
+
+        The object type for the path to the mock attribute
+        'self.login' is:
+            github.NamedUser.NamedUser
+    """
 
     def __init__(
         self,
         owner: str
     ) -> None:
+
+        """ Class initializer.
+
+            Args:
+                owner (str):
+                    Name of the repository owner to populate the
+                    'login' attribute.
+
+            Returns:
+                None.
+        """
+
         self.login = owner
 
 
@@ -33,7 +54,7 @@ class GitOwnerLogin:
 GITHUB_API_URL = 'https://api.github.com'
 MOCK_GITHUB_KEY = '0123456789'
 MOCK_GITHUB_RATE_LIMITS = (4999, 5000)
-MOCK_GITHUB_USER = GitOwnerLogin(owner='timothyhull')
+MOCK_GITHUB_USER = MockGithubRepositoryOwner(owner='timothyhull')
 MOCK_GITHUB_URL = 'https://github.com/timothyhull'
 MOCK_GITHUB_PRIVATE = True
 MOCK_GITHUB_REPO_NAME = 'my_repo'
