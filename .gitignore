@@ -1,3 +1,6 @@
+# SQLite3 database files
+*.db
+
 # macOS Spotlight Index
 .DS_Store
 
