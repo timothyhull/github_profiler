@@ -15,6 +15,7 @@ from typing import List, Union
 import github
 
 # Imports - Local
+from db import db_helper
 
 # Load environment variables from the directory of this script
 load_dotenv(
@@ -166,3 +167,41 @@ def get_github_repos(
     )
 
     return repo_list
+
+
+def main() -> None:
+    """ Runs the GitHub Profiler workflow.
+
+        Args:
+            None.
+
+        Returns:
+            None.
+    """
+
+    # Perform GitHub authentication
+    gh_object = github_auth(
+        github_token=GITHUB_TOKEN
+    )
+
+    # Create a GitHub user object
+    gh_user = get_github_user(
+        github_object=gh_object
+    )
+
+    # Collect a list of user repos
+    gh_repos = get_github_repos(
+        github_user_object=gh_user
+    )
+
+    # Remove existing database entries
+    db_helper.truncate_tables()
+
+    # Add new database entries to the database
+    db_helper.add_repos(
+        repos=gh_repos
+    )
+
+
+if __name__ == '__main__':
+    main()
