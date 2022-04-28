@@ -10,16 +10,16 @@ from sys import argv
 from typing import List
 
 # Imports - Third-Party
-from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session as SessionObject
 from sqlalchemy.orm import sessionmaker
 
 # Imports - Local
+from _github_profiler.github_helper import load_env_vars
 from db.db_models import BASE, Repos
 
 # Load environment variables
-load_dotenv()
+load_env_vars()
 
 # Constants
 CURRENT_DIR = Path(dirname(__file__))
