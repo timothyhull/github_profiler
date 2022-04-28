@@ -156,11 +156,16 @@ def truncate_tables(
 
 
 def get_repos(
+    repo_name: str | None = None,
     session: SessionObject = session
 ) -> List:
     """ Get all repos from the database.
 
         Args:
+            repo_name (str or None, optional):
+                Optional repo name to query for a specific repo.
+                Default value is None.
+
             session (sqlalchemy.orm.Session (SessionObject), optional):
                 By default, uses the session object created by the
                 _create_session function.  Allows the ability to pass a
@@ -172,8 +177,14 @@ def get_repos(
                 by name.
     """
 
-    # Retreive and sort all entries from the hashtags table
-    repos = session.query(Repos).order_by(Repos.name).all()
+    # Query the Repos database table
+    if repo_name is None:
+
+        # Retreive and sort all entries from the Repos table
+        repos = session.query(Repos).order_by(Repos.name).all()
+
+        # Retreive a single entry from the Repos table
+        repos = session.query(Repos).filter(Repos.name == repo_name)
 
     return repos
 
