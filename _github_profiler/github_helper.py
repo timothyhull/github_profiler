@@ -15,12 +15,13 @@ def load_env_vars(
     """ Load environment variables from multiple paths.
 
         Args:
-            path (str, optional):
-                Custom path to an environment variable file
+            path (str or None, optional):
+                Custom path to an environment variable file.  The
+                default value is None.
 
         Returns:
             result (bool):
-                Combined result of all load_dotenv calls
+                Combined result of all load_dotenv calls.
 
     """
 
