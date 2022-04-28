@@ -3,11 +3,9 @@
 
 # Imports - Python Standard Library
 from collections import namedtuple
-from os import getcwd, getenv
-from os.path import join
+from os import getenv
 
 # Imports - Third-Party
-from dotenv import load_dotenv
 from github.AuthenticatedUser import AuthenticatedUser
 from github.GithubException import BadCredentialsException
 from github.GithubObject import NotSet, _NotSetType
@@ -15,19 +13,11 @@ from typing import List, Union
 import github
 
 # Imports - Local
+from _github_profiler.github_helper import load_env_vars
 from db import db_helper
 
-# Load environment variables from the directory of this script
-load_dotenv(
-    dotenv_path='./.env'
-)
-
-# Load environment variables from the script user's working directory
-load_dotenv(
-    dotenv_path=join(
-        getcwd(), '.env'
-    )
-)
+# Load environment variables
+load_env_vars()
 
 # Constants
 GITHUB_AFFILIATION = 'owner'
