@@ -30,10 +30,10 @@ DB_FUTURE_COMPATIBLE = True
 DB_NAME = getenv(key='DB_NAME', default=None)
 DB_PATH = join(CURRENT_DIR_ABSPATH, DB_NAME)
 DB_TEST_NAME = getenv(key='TEST_DB_NAME', default=None)
-DB_TEST_URL = getenv(key='DB_TEST_URL', default=None)
-# /// is for a rel path, but DB_PATH starts with / which makes an abs path ////
-DB_URL = getenv(key='DB_URL', default=f'sqlite+pysqlite:///{DB_PATH}')
-print(DB_URL)
+DB_TEST_URL_ROOT = 'sqlite+pysqlite:///:memory:'
+DB_TEST_URL = f'{DB_TEST_URL_ROOT}'
+DB_URL_ROOT = 'sqlite+pysqlite:///'
+DB_URL = f'{DB_URL_ROOT}{DB_PATH}'
 
 # Create a sqllite3 database connection, and database if none exists
 connect(
@@ -70,8 +70,8 @@ def _create_session() -> SessionObject:
     # Verify db_url is not None
     if db_url is None:
         raise EnvironmentError(
-            # '\nSet the "DB_URL" and/or "DB_TEST_URL" environment variables\n'
-            '\nNo URL to database found.\n'
+            '\nSet either the "DB_NAME" or "DB_TEST_URL" '
+            'environment variables.\n'
         )
 
     # Create an sqlalchemy.engine.Engine object
