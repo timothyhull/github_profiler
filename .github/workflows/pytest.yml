@@ -17,6 +17,9 @@ jobs:
 
     # Set environment variables
     env:
+      DB_NAME: github_profiler.db
+      DB_TEST_NAME: test_github_profiler.db
+
       PYTHONPATH: ./
 
     steps:
