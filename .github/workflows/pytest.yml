@@ -25,6 +25,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # setup-python@v3 action documentation
+      # https://github.com/marketplace/actions/setup-python
+      - name: Set Python version
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.10
+
       # Set PYTHONPATH environment variable
       - name: Set PYTHONPATH environment variable
         run: |
