@@ -3,7 +3,7 @@
 
 # Imports - Python Standard Library
 from os import getenv
-from os.path import abspath, dirname, join
+from os.path import dirname, join
 from pathlib import Path
 from sqlite3 import connect
 from sys import argv
@@ -23,12 +23,11 @@ load_env_vars()
 
 # Constants
 CURRENT_DIR = Path(dirname(__file__))
-CURRENT_DIR_ABSPATH = abspath(CURRENT_DIR)
 DB_AUTOFLUSH = True
 DB_LOGGING = True
 DB_FUTURE_COMPATIBLE = True
 DB_NAME = getenv(key='DB_NAME', default=None)
-DB_PATH = join(CURRENT_DIR_ABSPATH, DB_NAME)
+DB_PATH = join(CURRENT_DIR, DB_NAME)
 DB_TEST_NAME = getenv(key='TEST_DB_NAME', default=None)
 DB_TEST_URL_ROOT = 'sqlite+pysqlite:///:memory:'
 DB_TEST_URL = f'{DB_TEST_URL_ROOT}'
