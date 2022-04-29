@@ -4,10 +4,13 @@
 # Imports - Python Standard Library
 from collections import namedtuple
 from os import getenv
+from sys import exit
 
 # Imports - Third-Party
 from github.AuthenticatedUser import AuthenticatedUser
-from github.GithubException import BadCredentialsException
+from github.GithubException import (
+    BadCredentialsException, GithubException
+)
 from github.GithubObject import NotSet, _NotSetType
 from typing import List, Union
 import github
@@ -180,9 +183,19 @@ def main() -> None:
     )
 
     # Collect a list of user repos
-    gh_repos = get_github_repos(
-        github_user_object=gh_user
-    )
+    try:
+        gh_repos = get_github_repos(
+            github_user_object=gh_user
+        )
+    # Handle authentication failures
+    except GithubException as e:
+        print(
+            f'\n** A {e.status} error occurred **\n'
+            f'\n{e.data}\n'
+            '\n** Make sure your working directory has an .env with the '
+            'variable "GITHUB_TOKEN" to a valid GitHub Access Token **\n'
+        )
+        exit(1)
 
     # Remove existing database entries
     db_helper.truncate_tables()
