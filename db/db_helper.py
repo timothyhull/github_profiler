@@ -28,7 +28,6 @@ DB_LOGGING = True
 DB_FUTURE_COMPATIBLE = True
 DB_NAME = getenv(key='DB_NAME', default=None)
 DB_PATH = join(CURRENT_DIR, DB_NAME)
-DB_TEST_NAME = getenv(key='TEST_DB_NAME', default=None)
 DB_TEST_URL_ROOT = 'sqlite+pysqlite:///:memory:'
 DB_TEST_URL = f'{DB_TEST_URL_ROOT}'
 DB_URL_ROOT = 'sqlite+pysqlite:///'
