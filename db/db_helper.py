@@ -21,7 +21,7 @@ from db.db_models import BASE, Repos
 # Load environment variables
 load_env_vars(
     env_path=join(
-        dirname(), '.env'
+        dirname(__file__), '.env'
     )
 )
 
