@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" GitHub profiler web application for #100DaysofCode Days 59+60. """
+""" GitHub profiler test web app for #100DaysofCode Days 59+60. """
 
 # Imports - Python Standard Library
 
