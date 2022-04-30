@@ -192,8 +192,8 @@ def main() -> None:
         print(
             f'\n** A {e.status} error occurred **\n'
             f'\n{e.data}\n'
-            '\n** Make sure your working directory has an .env with the '
-            'variable "GITHUB_TOKEN" to a valid GitHub Access Token **\n'
+            '\n** Make sure your working directory has an .env file with the '
+            'variable "GITHUB_TOKEN" set to a valid GitHub Access Token **\n'
         )
         exit(1)
 
