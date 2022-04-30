@@ -4,6 +4,7 @@
 # Imports - Python Standard Library
 from collections import namedtuple
 from os import getenv
+from os.path import dirname, join
 from sys import exit
 
 # Imports - Third-Party
@@ -20,7 +21,11 @@ from _github_profiler.github_helper import load_env_vars
 from db import db_helper
 
 # Load environment variables
-load_env_vars()
+load_env_vars(
+    env_path=join(
+        dirname(__file__), '.env'
+    )
+)
 
 # Constants
 GITHUB_AFFILIATION = 'owner'
