@@ -27,7 +27,7 @@ def load_env_vars(
 
     # Load environment variables from the directory of this script
     script_path = load_dotenv(
-        dotenv_path='./.env'
+        dotenv_path='.env'
     )
 
     # Load environment variables from the script user's working directory
