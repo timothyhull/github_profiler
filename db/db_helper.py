@@ -177,12 +177,12 @@ def get_repos(
 
     # Query the Repos database table
     if repo_name is None:
-
         # Retreive and sort all entries from the Repos table
         repos = session.query(Repos).order_by(Repos.name).all()
 
+    else:
         # Retreive a single entry from the Repos table
-        repos = session.query(Repos).filter(Repos.name == repo_name)
+        repos = session.query(Repos).filter(Repos.name == repo_name).all()
 
     return repos
 
