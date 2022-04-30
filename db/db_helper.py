@@ -19,7 +19,11 @@ from _github_profiler.github_helper import load_env_vars
 from db.db_models import BASE, Repos
 
 # Load environment variables
-load_env_vars()
+load_env_vars(
+    env_path=join(
+        dirname(), '.env'
+    )
+)
 
 # Constants
 CURRENT_DIR = Path(dirname(__file__))
