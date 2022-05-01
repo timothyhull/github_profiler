@@ -7,6 +7,7 @@
 from flask import Flask, url_for
 
 # Imports - Local
+from db import db_helper
 
 # Flask web application object
 app = Flask(
@@ -25,9 +26,23 @@ def index() -> str:
             None.
 
         Returns:
-            TODO
+            repos (str):
+                List of all repositories.
     """
-    return 'index'
+
+    # Request all repos from the database
+    repos_list = db_helper.get_repos()
+
+    # Build repos string
+    repos = ''
+    repos += f'Total repos: {len(repos_list)}\n'
+
+    for index, repo in enumerate(repos_list):
+        repos += (
+            f'{index + 1}. Repo name: {repo.name}\n'
+        )
+
+    return repos
 
 
 # Testing the url_for method, which will automatically escape special chars
