@@ -6,21 +6,28 @@
     <body>
         <h1 align="center">GitHub Repos</h1>
         <ol>
+        <!-- TODO -->
         {% for repo in repo_list %}
             <li><b>Name: </b>{{ repo.name }}</li>
                 <ul>
+                    <!-- TODO -->
                     {% if repo.description %}
+                        <!-- TODO -->
                         {% if repo.description | length < 75 %}
                             <li><b>Description: </b>{{ repo.description }}</li>
+                        <!-- TODO -->
                         {% else %}
                             <li><b>Description: </b>{{ repo.description | truncate(length=75) }} <a title="{{ repo.description }}">[<font style="color:blue;text-decoration-line: underline;">more</font>]</a></li>
                         {% endif %}
+                    <!-- TODO -->
                     {% else %}
                         <li><b>Description: </b><font style="color:red;">{{ repo.description }}</font></li>
                     {% endif %}
                     <li><b>Owner: </b>{{ repo.owner }}</li>
+                    <!-- TODO -->
                     {% if repo.private %}
                         <li><b>URL: </b><font style="color:red;">Private</font></li>
+                    <!-- TODO -->
                     {% else %}
                         <li><b>URL: </b><a target="_blank" href="https://github.com/{{ repo.owner }}/{{ repo.name }}">https://github.com/{{ repo.owner }}/{{ repo.name }}</a></li>
                     {% endif %}
