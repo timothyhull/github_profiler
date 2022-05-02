@@ -17,9 +17,14 @@ app = Flask(
 
 # Default route
 @app.route(
-    rule='/'
+    rule='/index/'
 )
-def index() -> str:
+@app.route(
+    rule='/index/<repo>'
+)
+def index(
+    repo: str = None
+) -> str:
     """ Display all repositories.
 
         Args:
