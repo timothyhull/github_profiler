@@ -17,10 +17,10 @@ app = Flask(
 
 # Default route
 @app.route(
-    rule='/index/'
+    rule='/'
 )
 @app.route(
-    rule='/index/<repo>'
+    rule='/<repo>'
 )
 def index(
     repo: str = None
@@ -28,7 +28,8 @@ def index(
     """ Display all repositories.
 
         Args:
-            None.
+            repo (str):
+                Name of a repo to filter by.
 
         Returns:
             repos (str):
@@ -36,7 +37,9 @@ def index(
     """
 
     # Request all repos from the database
-    repos_list = db_helper.get_repos()
+    repos_list = db_helper.get_repos(
+        repo_name=repo
+    )
 
     # Build repos string
     repos = ''
@@ -47,7 +50,10 @@ def index(
             f'{index + 1}. Repo name: {repo.name}\n'
         )
 
-    return repos
+    return render_template(
+        template_name_or_list='index.html',
+        repo=repo
+    )
 
 
 # Testing the url_for method, which will automatically escape special chars
