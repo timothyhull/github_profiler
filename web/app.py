@@ -37,22 +37,13 @@ def index(
     """
 
     # Request all repos from the database
-    repos_list = db_helper.get_repos(
+    repo_list = db_helper.get_repos(
         repo_name=repo
     )
 
-    # Build repos string
-    repos = ''
-    repos += f'Total repos: {len(repos_list)}\n'
-
-    for index, repo in enumerate(repos_list):
-        repos += (
-            f'{index + 1}. Repo name: {repo.name}\n'
-        )
-
     return render_template(
         template_name_or_list='index.html',
-        repo=repo
+        repo=repo_list
     )
 
 
