@@ -41,6 +41,7 @@ def index(
         repo_name=repo
     )
 
+    # Render an HTML template
     return render_template(
         template_name_or_list='index.html',
         repo=repo_list
