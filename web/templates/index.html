@@ -4,10 +4,32 @@
         <title>GitHub Profiler App</title>
     </head>
     <body>
-        {% if repo %}
-            <h1 align="center">{{ repo }}</h1>
-        {% else %}
-            <h1 align="center">GitHub Profiler</h1>
-        {% endif %}
+        <h1 align="center">GitHub Repos</h1>
+        <ol>
+        {% for repo in repo_list %}
+            <li><b>Name: </b>{{ repo.name }}</li>
+                <ul>
+                    {% if repo.description %}
+                        {% if repo.description | length < 75 %}
+                            <li><b>Description: </b>{{ repo.description }}</li>
+                        {% else %}
+                            <li><b>Description: </b>{{ repo.description | truncate(length=75) }} <a title="{{ repo.description }}">[<font style="color:blue;text-decoration-line: underline;">more</font>]</a></li>
+                        {% endif %}
+                    {% else %}
+                        <li><b>Description: </b><font style="color:red;">{{ repo.description }}</font></li>
+                    {% endif %}
+                    <li><b>Owner: </b>{{ repo.owner }}</li>
+                    {% if repo.private %}
+                        <li><b>URL: </b><font style="color:red;">Private</font></li>
+                    {% else %}
+                        <li><b>URL: </b><a target="_blank" href="https://github.com/{{ repo.owner }}/{{ repo.name }}">https://github.com/{{ repo.owner }}/{{ repo.name }}</a></li>
+                    {% endif %}
+                    <li><b>Last updated: </b>{{ repo.updated_at }}</li>
+                </ul>
+            <br>
+            <hr>
+            <br>
+        {% endfor %}
+        </ol>
     </body>
 </html>
