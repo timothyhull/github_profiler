@@ -6,28 +6,29 @@
     <body>
         <h1 align="center">GitHub Repos</h1>
         <ol>
-        <!-- TODO -->
+        <!-- Loop over the list of GitHub repos -->
         {% for repo in repo_list %}
             <li><b>Name: </b>{{ repo.name }}</li>
                 <ul>
-                    <!-- TODO -->
+                    <!-- Display a repo description, if one exists -->
                     {% if repo.description %}
-                        <!-- TODO -->
+                        <!-- Display the full repo description, if it is less than 75 characters -->
                         {% if repo.description | length < 75 %}
                             <li><b>Description: </b>{{ repo.description }}</li>
-                        <!-- TODO -->
+                        <!-- If the description is longer than 75 characters,  display a "more" button with hover text -->
                         {% else %}
-                            <li><b>Description: </b>{{ repo.description | truncate(length=75) }} <a title="{{ repo.description }}">[<font style="color:blue;text-decoration-line: underline;">more</font>]</a></li>
+                            <li><b>Description: </b>{{ repo.description | truncate(length=75) }} <a title="{{ repo.description }}">
+                                [<font style="color:blue;text-decoration-line: underline;">more</font>]</a></li>
                         {% endif %}
-                    <!-- TODO -->
+                    <!-- Display a None value for the repo description in red -->
                     {% else %}
                         <li><b>Description: </b><font style="color:red;">{{ repo.description }}</font></li>
                     {% endif %}
                     <li><b>Owner: </b>{{ repo.owner }}</li>
-                    <!-- TODO -->
+                    <!-- Display red text to indicate when a repo is private -->
                     {% if repo.private %}
                         <li><b>URL: </b><font style="color:red;">Private</font></li>
-                    <!-- TODO -->
+                    <!-- Display a repo URL when a repo is public -->
                     {% else %}
                         <li><b>URL: </b><a target="_blank" href="https://github.com/{{ repo.owner }}/{{ repo.name }}">https://github.com/{{ repo.owner }}/{{ repo.name }}</a></li>
                     {% endif %}
