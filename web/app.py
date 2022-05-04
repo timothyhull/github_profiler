@@ -40,6 +40,12 @@ def index(
                 List of all repositories.
     """
 
+    # CSS static file
+    url_for(
+        endpoint='static',
+        filename='css/custom.css'
+    )
+
     # Request all repos from the database
     repo_list = db_helper.get_repos(
         repo_name=repo
