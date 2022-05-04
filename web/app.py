@@ -8,6 +8,10 @@ from flask import Flask, render_template, url_for
 
 # Imports - Local
 from db import db_helper
+from app import github_profiler
+
+# Refresh repository content
+github_profiler.main()
 
 # Flask web application object
 app = Flask(
