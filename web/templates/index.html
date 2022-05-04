@@ -20,12 +20,20 @@
     </head>
     <body>
 
+        <!-- Heading and day/note mode toggle -->
         <h1 align="center">GitHub Repos</h1>
-        <button type="button" id="darklighttoggle">Day/Night Toggle</button>
+        <div align="center">
+            <button id="daynighttoggle">Day/Night Toggle</button>
+        </div>
         <ol>
-        <!-- Loop over the list of GitHub repos -->
-        {% for repo in repo_list %}
-            <li><b>Name: </b>{{ repo.name }}</li>
+            <!-- Loop over the list of GitHub repos -->
+            {% for repo in repo_list %}
+                <!-- Display red text to indicate when a repo is private -->
+                {% if repo.private %}
+                    <li><b>Name: </b>{{ repo.name }}</li>
+                {% else %}
+                    <li><b>Name: </b><a href="/{{ repo.name }}">{{ repo.name }}</a></li>
+                {% endif %}
                 <ul>
                     <!-- Display a repo description, if one exists -->
                     {% if repo.description %}
@@ -56,13 +64,15 @@
             <br>
         {% endfor %}
         </ol>
+
+        <h6 align="center"><a href="/">View All Repos</a></h6>
         <!-- Bootstrap JavaScript Bundle with Popper -->
         <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> -->
 
         <!-- Bootstrap dark mode Javascript -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap-dark-5@1.1.3/dist/js/darkmode.min.js"></script>
         <script>
-            document.querySelector("#darklighttoggle").onclick = function(e){
+            document.querySelector("#daynighttoggle").onclick = function(e){
               darkmode.toggleDarkMode();
             }
         </script>
