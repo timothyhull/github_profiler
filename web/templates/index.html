@@ -25,6 +25,7 @@
         <div align="center">
             <button id="daynighttoggle">Day/Night Toggle</button>
         </div>
+        <br>
 
         <!-- Display repos, if the database has any repos -->
         {% if repo_list %}
@@ -62,9 +63,7 @@
                         {% endif %}
                         <li><b>Last updated: </b>{{ repo.updated_at }}</li>
                     </ul>
-                <br>
                 <hr>
-                <br>
             {% endfor %}
             </ol>
 
