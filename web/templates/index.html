@@ -25,45 +25,55 @@
         <div align="center">
             <button id="daynighttoggle">Day/Night Toggle</button>
         </div>
-        <ol>
-            <!-- Loop over the list of GitHub repos -->
-            {% for repo in repo_list %}
-                <!-- Display red text to indicate when a repo is private -->
-                {% if repo.private %}
-                    <li><b>Name: </b>{{ repo.name }}</li>
-                {% else %}
-                    <li><b>Name: </b><a href="/{{ repo.name }}">{{ repo.name }}</a></li>
-                {% endif %}
-                <ul>
-                    <!-- Display a repo description, if one exists -->
-                    {% if repo.description %}
-                        <!-- Display the full repo description, if it is less than 75 characters -->
-                        {% if repo.description | length < 75 %}
-                            <li><b>Description: </b>{{ repo.description }}</li>
-                        <!-- If the description is longer than 75 characters,  display a "more" button with hover text -->
-                        {% else %}
-                            <li><b>Description: </b>{{ repo.description | truncate(length=75) }} <a title="{{ repo.description }}">
-                                [<font style="color:blue;text-decoration-line: underline;">more</font>]</a></li>
-                        {% endif %}
-                    <!-- Display a None value for the repo description in red -->
-                    {% else %}
-                        <li><b>Description: </b><font style="color:red;">{{ repo.description }}</font></li>
-                    {% endif %}
-                    <li><b>Owner: </b>{{ repo.owner }}</li>
+
+        <!-- Display repos, if the database has any repos -->
+        {% if repo_list %}
+            <ol>
+                <!-- Loop over the list of GitHub repos -->
+                {% for repo in repo_list %}
                     <!-- Display red text to indicate when a repo is private -->
                     {% if repo.private %}
-                        <li><b>URL: </b><font style="color:red;">Private</font></li>
-                    <!-- Display a repo URL when a repo is public -->
+                        <li><b>Name: </b>{{ repo.name }}</li>
                     {% else %}
-                        <li><b>URL: </b><a target="_blank" href="https://github.com/{{ repo.owner }}/{{ repo.name }}">https://github.com/{{ repo.owner }}/{{ repo.name }}</a></li>
+                        <li><b>Name: </b><a href="/{{ repo.name }}">{{ repo.name }}</a></li>
                     {% endif %}
-                    <li><b>Last updated: </b>{{ repo.updated_at }}</li>
-                </ul>
-            <br>
+                    <ul>
+                        <!-- Display a repo description, if one exists -->
+                        {% if repo.description %}
+                            <!-- Display the full repo description, if it is less than 75 characters -->
+                            {% if repo.description | length < 75 %}
+                                <li><b>Description: </b>{{ repo.description }}</li>
+                            <!-- If the description is longer than 75 characters,  display a "more" button with hover text -->
+                            {% else %}
+                                <li><b>Description: </b>{{ repo.description | truncate(length=75) }} <a title="{{ repo.description }}">
+                                    [<font style="color:blue;text-decoration-line: underline;">more</font>]</a></li>
+                            {% endif %}
+                        <!-- Display a None value for the repo description in red -->
+                        {% else %}
+                            <li><b>Description: </b><font style="color:red;">{{ repo.description }}</font></li>
+                        {% endif %}
+                        <li><b>Owner: </b>{{ repo.owner }}</li>
+                        <!-- Display red text to indicate when a repo is private -->
+                        {% if repo.private %}
+                            <li><b>URL: </b><font style="color:red;">Private</font></li>
+                        <!-- Display a repo URL when a repo is public -->
+                        {% else %}
+                            <li><b>URL: </b><a target="_blank" href="https://github.com/{{ repo.owner }}/{{ repo.name }}">https://github.com/{{ repo.owner }}/{{ repo.name }}</a></li>
+                        {% endif %}
+                        <li><b>Last updated: </b>{{ repo.updated_at }}</li>
+                    </ul>
+                <br>
+                <hr>
+                <br>
+            {% endfor %}
+            </ol>
+
+        {% else %}
+            <!-- Display a message if the database has no repos -->
             <hr>
-            <br>
-        {% endfor %}
-        </ol>
+            <h3 align="center" class="">No matching repos</h3>
+            <hr>
+        {% endif %}
 
         <h6 align="center"><a href="/">View All Repos</a></h6>
         <!-- Bootstrap JavaScript Bundle with Popper -->
