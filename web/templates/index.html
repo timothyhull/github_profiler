@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <!-- Bootstrap CSS -->
-        <link href="static/scss/custom.scss" rel="stylesheet">
-
-        <!-- Required meta tags -->
+        <!-- Bootstrap required meta tags -->
         <meta charset="utf-8">
         <!-- Width-responsive for mobile device touch zooming -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,6 +19,7 @@
     <body>
 
         <h1 align="center">GitHub Repos</h1>
+        <button type="button" id="darklighttoggle">Day/Night Toggle</button>
         <ol>
         <!-- Loop over the list of GitHub repos -->
         {% for repo in repo_list %}
@@ -61,5 +59,10 @@
 
         <!-- Bootstrap dark mode Javascript -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap-dark-5@1.1.3/dist/js/darkmode.min.js"></script>
+        <script>
+            document.querySelector("#darklighttoggle").onclick = function(e){
+              darkmode.toggleDarkMode();
+            }
+        </script>
     </body>
 </html>
