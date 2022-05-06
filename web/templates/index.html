@@ -21,25 +21,35 @@
     <body>
 
         <!-- Heading and day/note mode toggle -->
-        <h1 class="h1. Bootstrap heading;
+        <h1 class="h1. Bootstrap heading
                    text-center">
                 GitHub Repos
         </h1>
         <div align="center">
             <button
-                class="btn btn-dark"
+                class="btn btn-dark
+                       btn-sm"
                 id="daynighttoggle"
                 type="button">
                     Day/Night Toggle
             </button>
         <br>
-            <button type="button" class="btn btn-primary position-relative">
-                Repositories
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+        </div>
+
+        <hr>
+
+        <!-- Repository count badge -->
+        <div>
+           <button class="btn btn-primary
+                          btn-sm
+                          border-0
+                          position-absolute top-0 start-100
+                          disabled"
+                   type="button">
+                Total Repositories: 
+                <span class="badge bg-secondary
+                             bg-danger">
                     {{ repo_list | length }}
-                    <span class="visually-hidden">
-                        total repositories
-                    </span>
                 </span>
             </button>
         </div>
