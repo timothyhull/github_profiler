@@ -20,39 +20,48 @@
     </head>
     <body>
 
-        <!-- Heading and day/note mode toggle -->
+        <!-- Heading -->
         <h1 class="h1. Bootstrap heading
-                   text-center">
+                   text-center
+                   bg-primary
+                   p-1"
+                   style="--bs-bg-opacity: .5;">
                 GitHub Repos
         </h1>
-        <div align="center">
-            <button
-                class="btn btn-dark
-                       btn-sm"
-                id="daynighttoggle"
-                type="button">
-                    Day/Night Toggle
-            </button>
-        <br>
-        </div>
+
+        <!-- Day/note mode toggle -->
+        <div class="container">
+            <div class="row">
+                <div class="text-center bg-secondary rounded border shadow p-1" style="--bs-bg-opacity: .2;">
+                    <button
+                        class="btn btn-dark
+                               btn
+                               shadow"
+                        id="daynighttoggle"
+                        type="button">
+                            Day/Night Toggle
+                    </button>
+                </div>
+            </div>
+
+            <!-- Repository count badge -->
+            <div class="text-center bg-warning rounded border shadow p-2 m-3" style="--bs-bg-opacity: .5;">
+                <button class="btn btn-primary
+                               btn
+                               border-0
+                               disabled"
+                        type="button">
+                        Total Repositories: 
+                        <span class="badge bg-secondary
+                                    bg-danger">
+                            {{ repo_list | length }}
+                        </span>
+                    </button>
+            </div>
+        </div>          
 
         <hr>
 
-        <!-- Repository count badge -->
-        <div>
-           <button class="btn btn-primary
-                          btn-sm
-                          border-0
-                          position-absolute top-0 start-100
-                          disabled"
-                   type="button">
-                Total Repositories: 
-                <span class="badge bg-secondary
-                             bg-danger">
-                    {{ repo_list | length }}
-                </span>
-            </button>
-        </div>
         <br>
         <!-- Display repos, if the database has any repos -->
         {% if repo_list %}
