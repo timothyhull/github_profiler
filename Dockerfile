@@ -26,5 +26,5 @@ COPY /app /app
 # Expose required ports
 EXPOSE 8080/tcp
 
-# Start the bash prompt
-CMD ["/bin/bash"]
+# Start the application
+CMD ["flask, run"]
